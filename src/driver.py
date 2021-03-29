@@ -114,8 +114,13 @@ class AmazonAwsCloudProviderShell2GDriver(ResourceDriverInterface):
     def AddCustomTags(self, context, request, ports):
         return self.aws_shell.add_custom_tags(context, request)
 
-    def save_app(self, context, cancellation_context, ports):
-        return self.aws_shell.save_app(context, cancellation_context)
+    def create_app_image(self, context, cancellation_context, ports, delete_old_image='False', app_template_name='',
+                         revertNum='1'):
+        return self.aws_shell.create_app_image(context, cancellation_context, delete_old_image == 'True',
+                                               app_template_name, int(revertNum))
+
+    def revert_app_image(self, context, cancellation_context, ports, app_template_name=''):
+        return self.aws_shell.revert_app_image(context, cancellation_context, app_template_name)
 
     def remote_save_snapshot(
         self,
